@@ -1,0 +1,31 @@
+class Solution {
+  public:
+    // Return the Kth smallest element in the given BST
+    int ans=-1;
+    int temp=0;
+    
+    void solve(Node* root,int K){
+        if(root==NULL)
+        return;
+        
+        solve(root->left,K);
+        temp++;
+        if(temp==K){
+        ans=root->data;
+        return;
+        }
+        solve(root->right,K);
+    }
+    
+    int KthSmallestElement(Node *root, int K) {
+        // add code here.
+        
+        solve(root,K);
+        return ans;
+        
+        
+        
+        
+        
+    }
+};
