@@ -1,0 +1,92 @@
+class Solution {
+public:
+    int height(TreeNode* p){
+        if(p==NULL)
+            return 0;
+        int x=height(p->left);
+        int y=height(p->right);
+        return max(x,y)+1;
+    }
+    
+    TreeNode* InPre(TreeNode* p){
+        if(p==NULL)
+            return NULL;
+        
+        while(p->right){
+            p=p->right;}
+        return p;
+        
+    }
+    
+    TreeNode* InSucc(TreeNode* p){
+        if(p==NULL)
+            return NULL;
+        while(p->left){
+            p=p->left;
+        }
+        return p;
+    }
+    
+    TreeNode* solve(TreeNode* root,TreeNode* p,int key){
+        TreeNode* q;
+        if(p==NULL)
+            return NULL;
+        
+        if(p->left==NULL and p->right==NULL){
+            if(p==root){
+                root=NULL;
+                
+            }
+            delete(p);
+            return NULL;
+        }
+        if(p->val<key){
+            p->right=solve(root,p->right,key);
+        }
+        else if(p->val>key){
+            p->left=solve(root,p->left,key);
+        }
+        else if(p->val==key){
+            if(height(p->left)>height(p->right)){
+                q=InPre(p->left);
+                p->val=q->val;
+                p->left=solve(root,p->left,q->val);
+                
+                
+                
+                
+                
+            }
+        
+            else{
+                
+                q=InSucc(p->right);
+                p->val=q->val;
+                p->right=solve(root,p->right,q->val);
+                
+                
+                
+                
+                
+            }
+        }
+        return p;
+    }
+    TreeNode* deleteNode(TreeNode* root, int key) {
+        TreeNode* p=root;
+        while(p){
+            if(p->val<key){
+         p=p->right;}
+            
+            else if(p->val>key){
+                p=p->left;
+            }
+            else if(p->val==key)
+                break;
+        }
+        if(p==NULL)
+            return root;
+        
+       return solve(root,root,key);
+    }
+};
