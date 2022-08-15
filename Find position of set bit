@@ -1,0 +1,16 @@
+ int findPosition(int N) {
+        // code here
+        int one=0;
+        int pos=0;
+        for(int i=0;i<=31;i++){
+            if(N & (1<<i)){
+                pos=i;
+                one++;
+            }
+            
+        }
+        if(one==0 or one>1)
+        return -1;
+        else
+        return pos+1;
+    }
