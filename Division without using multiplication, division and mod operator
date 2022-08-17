@@ -1,0 +1,24 @@
+ long long divide(long long dividend, long long divisor) 
+    {
+        //code here
+       long long int sign;
+       if((dividend<0 and divisor>0) or (dividend>0 and divisor<0))
+       sign=-1;
+       else
+       sign=1;
+       
+       long long int tempx=abs(dividend);
+       long long int tempy=abs(divisor);
+       
+       long long int temp=0;
+       long long int quotient=0;
+       
+       for(int i=31;i>=0;i--){
+           if(temp+(tempy<<i)<=tempx){
+               temp=temp+(tempy<<i);
+               quotient+=(long long)1<<i;
+           }
+       }
+      
+       return quotient*sign;
+    }
